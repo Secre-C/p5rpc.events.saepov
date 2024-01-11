@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "p5rpc.events.saepov", "p5rpc.events.saepov.csproj", "{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CC68037-8EF7-44EE-88F7-EF63596E6A86}
+	EndGlobalSection
+EndGlobal

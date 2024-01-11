@@ -1,0 +1,26 @@
+{
+  "ModId": "p5rpc.events.saepov",
+  "ModName": "Sae Niijima Pov",
+  "ModAuthor": "SecreC.",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Makes Sae Niijima's P5R appearances consistent with her P5S appearance by making every event that features her shown from her perspective.",
+  "ModDll": "p5rpc.events.saepov.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/p5rpc.events.saepov.dll",
+  "ModR2RManagedDll64": "x64/p5rpc.events.saepov.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "p5rpc.events.saepov.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [
+    "reloaded.sharedlib.hooks",
+    "Reloaded.Memory.SigScan.ReloadedII",
+    "p5rpc.lib",
+    "p5rpc.modloader"
+  ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [ "p5r.exe" ],
+  "ProjectUrl": ""
+}
