@@ -128,13 +128,21 @@ internal unsafe class ModelFunctions
 
     internal bool TryGetModelNodeFromName(void* modelNodeData, string nodeName, out ModelNodeInfo* modelNodeInfo)
     {
-        modelNodeInfo = ModelGetNodeFromName(modelNodeData, nodeName);
+        modelNodeInfo = null;
+
+        if (modelNodeData != null)
+            modelNodeInfo = ModelGetNodeFromName(modelNodeData, nodeName);
+
         return modelNodeInfo != null;
     }
 
     internal bool TryGetModelData(ModelResource* resource, out ModelData* modelData)
     {
-        modelData = ModelGetData(resource);
+        modelData = null;
+
+        if (resource != null)
+            modelData = ModelGetData(resource);
+
         return modelData != null;
     }
 }
