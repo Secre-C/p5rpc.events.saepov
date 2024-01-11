@@ -9,7 +9,7 @@ namespace p5rpc.events.saepov;
 
 internal unsafe class SaePov
 {
-    private GameFunctions _gameFunctions;
+    private ModelFunctions _gameFunctions;
 
     private delegate void CamPosFunc1(long a1, long a2);
     private IHook<CamPosFunc1> _camPosFunc1Hook;
@@ -31,7 +31,7 @@ internal unsafe class SaePov
         _modContext.ModLoader.GetController<IP5RLib>().TryGetTarget(out _p5rLib);
         _flowCaller = _p5rLib.FlowCaller;
 
-        _gameFunctions = new GameFunctions(_modContext, _scanner);
+        _gameFunctions = new ModelFunctions(_modContext, _scanner);
 
         var evtCamPosSig = @"48 85 D2 0F 84 ?? ?? ?? ?? 48 8B C4 55 48 8D A8 ?? ?? ?? ??";
 
@@ -48,7 +48,8 @@ internal unsafe class SaePov
             {
                 _camPosFunc1Hook.OriginalFunction(a1, a2);
 
-                if (_gameFunctions.TrySearchCharacterModelResource(1005, -1, byte.MaxValue, out var niijimaResources)) // -1 and byte.MaxValue are wildcards
+                const int SAE_MODEL_MAJOR_ID = 1005;
+                if (_gameFunctions.TrySearchCharacterModelResource(SAE_MODEL_MAJOR_ID, -1, -1, out var niijimaResources)) // -1 is a wildcard
                 {
                     foreach (var niijimaResource in niijimaResources)
                     {

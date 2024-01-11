@@ -4,10 +4,11 @@ using Reloaded.Memory.SigScan.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using static p5rpc.events.saepov.ModelResourceHelper;
 
 namespace p5rpc.events.saepov;
 
-internal unsafe class GameFunctions
+internal unsafe class ModelFunctions
 {
     private ModContext _context;
     private ILogger _logger;
@@ -17,9 +18,6 @@ internal unsafe class GameFunctions
     internal delegate Vector3* d_ModelGetTranslate(ModelResource* modelResource);
     internal d_ModelGetTranslate ModelGetTranslate;
 
-    internal delegate Quaternion* d_ModelGetRotate(ModelResource* modelResource);
-    internal d_ModelGetRotate ModelGetRotate;
-
     internal delegate ModelNodeInfo* d_ModelGetNodeFromName(void* modelNodeData, string nodeName);
     internal d_ModelGetNodeFromName ModelGetNodeFromName;
 
@@ -28,7 +26,7 @@ internal unsafe class GameFunctions
 
     internal ModelResource* ModelResourceList { get; private set; }
 
-    internal GameFunctions(ModContext context, IStartupScanner scanner)
+    internal ModelFunctions(ModContext context, IStartupScanner scanner)
     {
         _context = context;
         _logger = _context.Logger;
@@ -49,21 +47,7 @@ internal unsafe class GameFunctions
                     throw new Exception("Could not find ModelGetTranslate Function.");
                 }
             });
-
-        _scanner.AddMainModuleScan(@"48 8B D1 48 85 C9 74 ?? 48 8B 49 ?? 0F B6 C1 C0 E8 05 A8 01 75 ?? 4C 8B 02 49 C1 E8 3A 41 83 F8 07 77 ?? 48 8B C1 48 C1 E8 09 A8 01 74 ?? 48 C1 E9 12 F6 C1 01 74 ?? 33 C0 C3 F6 C1 01 74 ?? 41 8D 40 ?? 83 F8 1E 77 ?? 4C 8D 05 ?? ?? ?? ?? 41 0F B6 84 ?? ?? ?? ?? ?? 41 8B 8C ?? ?? ?? ?? ?? 49 03 C8 FF E1 48 8B 82 ?? ?? ?? ?? 48 85 C0 74 ?? 48 8B 40 ?? 48 05 B0 00 00 00",
-            result =>
-            {
-                if (result.Found)
-                {
-                    var adr = Utils.BaseAddress + result.Offset;
-                    _logger.WriteLine($"Found ModelGetRotate function at 0x{adr:X8}");
-                    ModelGetRotate = _hooks.CreateWrapper<d_ModelGetRotate>(adr, out var wrapperAddress);
-                }
-                else
-                {
-                    throw new Exception("Could not find ModelGetRotate Function.");
-                }
-            });
+ 
 
         _scanner.AddMainModuleScan(@"40 53 48 83 EC 20 48 89 D3 49 89 C8",
             result =>
@@ -112,9 +96,10 @@ internal unsafe class GameFunctions
             }
         });
     }
-    internal bool TrySearchCharacterModelResource(short majorId, short minorId, byte subId, out List<ModelResourceWrapper> models)
+
+    internal bool TrySearchCharacterModelResource(short majorId, short minorId, sbyte subId, out List<ModelResourceHelper> models)
     {
-        models = new List<ModelResourceWrapper>();
+        models = new List<ModelResourceHelper>();
 
         var block = (long)ModelResourceList;
         for (var i = 0; i < 0x20; i++)
@@ -129,14 +114,10 @@ internal unsafe class GameFunctions
             {
                 var modelIds = current->ModelIds;
 
-                var maj = (short)((*(int*)current >> 0x14) & 0xffff);
-                var min = (short)(*(int*)current & 0xfff);
-                var sub = (byte)((*(int*)current >> 0xc) & 0xff);
-
-                if ((maj != majorId && majorId != -1) || (min != minorId && minorId != -1) || (sub != subId && subId != byte.MaxValue))
+                if ((GetMajorId(current) != majorId && majorId != -1) || (GetMinorId(current) != minorId && minorId != -1) || (GetSubId(current) != subId && subId != -1))
                     continue;
 
-                models.Add(new ModelResourceWrapper(current));
+                models.Add(new ModelResourceHelper(current));
             }
 
             block += 8;
@@ -197,3 +178,5 @@ unsafe struct ModelData
     [FieldOffset(0x28)]
     internal void* NodeInfo;
 }
+
+
