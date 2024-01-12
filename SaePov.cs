@@ -1,4 +1,5 @@
-﻿using p5rpc.events.saepov.Template;
+﻿using CriFs.V2.Hook.Interfaces;
+using p5rpc.events.saepov.Template;
 using p5rpc.lib.interfaces;
 using Reloaded.Hooks.Definitions;
 using Reloaded.Memory.SigScan.ReloadedII.Interfaces;
@@ -19,6 +20,7 @@ internal unsafe class SaePov
     private ILogger _logger;
     private IFlowCaller _flowCaller;
     private IP5RLib _p5rLib;
+    private ICriFsRedirectorApi _criFsRedirectorApi;
 
     private long _fmwkAdr = 0;
     internal SaePov(ModContext context)
@@ -29,6 +31,10 @@ internal unsafe class SaePov
         _modContext = context;
         _modContext.ModLoader.GetController<IStartupScanner>().TryGetTarget(out _scanner);
         _modContext.ModLoader.GetController<IP5RLib>().TryGetTarget(out _p5rLib);
+        _modContext.ModLoader.GetController<ICriFsRedirectorApi>().TryGetTarget(out _criFsRedirectorApi);
+
+        AddFixFiles();
+
         _flowCaller = _p5rLib.FlowCaller;
 
         _gameFunctions = new ModelFunctions(_modContext, _scanner);
@@ -66,10 +72,22 @@ internal unsafe class SaePov
                             MoveCameraTowardsPoint(ref *niijimaTranslate, *niijimaLook, 2.0f);
                             _flowCaller.FLD_CAMERA_SET_POS(niijimaTranslate->X, niijimaTranslate->Y + 3.5f, niijimaTranslate->Z);
                             _flowCaller.FLD_CAMERA_SET_ROT(rot.X, rot.Y, rot.Z, rot.W);
+                            _flowCaller.FLD_CAMERA_SET_FOVY(45);
                         }
                     }
                 }
             }, adr).Activate();
         });
+    }
+
+    internal void AddFixFiles()
+    {
+        var config = _modContext.Configuration;
+
+        if (config.EventFixes)
+            _criFsRedirectorApi.AddProbingPath(@"Fixes\EventFixes");
+
+        if (config.HatRemoval)
+            _criFsRedirectorApi.AddProbingPath(@"Fixes\RemoveShadowSaeHat");
     }
 }

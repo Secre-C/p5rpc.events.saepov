@@ -18,7 +18,8 @@
     "reloaded.sharedlib.hooks",
     "Reloaded.Memory.SigScan.ReloadedII",
     "p5rpc.lib",
-    "p5rpc.modloader"
+    "p5rpc.modloader",
+    "crifs.v2.hook"
   ],
   "OptionalDependencies": [],
   "SupportedAppId": [ "p5r.exe" ],

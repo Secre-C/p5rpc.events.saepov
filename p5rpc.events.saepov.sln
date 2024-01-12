@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34310.174
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "p5rpc.events.saepov", "p5rpc.events.saepov.csproj", "{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "p5rpc.events.saepov", "p5rpc.events.saepov.csproj", "{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CriFs.V2.Hook.Interfaces", "Submodules\Crifs.V2.Hook\Interfaces\CriFs.V2.Hook.Interfaces\CriFs.V2.Hook.Interfaces.csproj", "{6D21898D-064E-4A2E-81E9-372902C17E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B72B4C62-A2B0-4F8D-9F9B-A08D6DCEBEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D21898D-064E-4A2E-81E9-372902C17E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D21898D-064E-4A2E-81E9-372902C17E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D21898D-064E-4A2E-81E9-372902C17E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D21898D-064E-4A2E-81E9-372902C17E41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using Reloaded.Mod.Interfaces;
+﻿using p5rpc.events.saepov.Configuration;
+using Reloaded.Mod.Interfaces;
 using IReloadedHooks = Reloaded.Hooks.ReloadedII.Interfaces.IReloadedHooks;
 
 namespace p5rpc.events.saepov.Template
@@ -22,6 +23,11 @@ namespace p5rpc.events.saepov.Template
         /// Provides access to the Reloaded logger.
         /// </summary>
         public ILogger Logger { get; set; } = null!;
+
+        /// <summary>
+        /// Provides access to this mod's configuration.
+        /// </summary>
+        public Config Configuration { get; set; } = null!;
 
         /// <summary>
         /// Configuration of this mod.
