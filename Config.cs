@@ -34,6 +34,16 @@ namespace p5rpc.events.saepov.Configuration
         [Description("Removes Sae's hat from her model to reduce clipping.")]
         [DefaultValue(true)]
         public bool HatRemoval { get; set; } = true;
+
+        [DisplayName("Distance")]
+        [Description("How far in front of Sae the camera will be.")]
+        [DefaultValue(6)]
+        public float CamDistance { get; set; } = 6;
+
+        [DisplayName("FOV")]
+        [Description("POV Camera Field of view")]
+        [DefaultValue(50)]
+        public float CamFOV { get; set; } = 50;
     }
 
     /// <summary>

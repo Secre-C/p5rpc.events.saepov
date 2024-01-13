@@ -68,11 +68,13 @@ internal unsafe class SaePov
                             var niijimaLook = &niijimaLookNode->WorldTranslate;
 
                             var rot = GetRotationBetweenPoints(*niijimaTranslate, *niijimaLook);
+                            var distance = _modContext.Configuration.CamDistance;
+                            var fovy = _modContext.Configuration.CamFOV;
 
-                            MoveCameraTowardsPoint(ref *niijimaTranslate, *niijimaLook, 2.0f);
+                            MoveCameraTowardsPoint(ref *niijimaTranslate, *niijimaLook, distance);
                             _flowCaller.FLD_CAMERA_SET_POS(niijimaTranslate->X, niijimaTranslate->Y + 3.5f, niijimaTranslate->Z);
                             _flowCaller.FLD_CAMERA_SET_ROT(rot.X, rot.Y, rot.Z, rot.W);
-                            _flowCaller.FLD_CAMERA_SET_FOVY(45);
+                            _flowCaller.FLD_CAMERA_SET_FOVY(fovy);
                         }
                     }
                 }
