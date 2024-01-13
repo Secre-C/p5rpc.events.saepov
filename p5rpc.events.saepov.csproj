@@ -18,8 +18,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="P5REssentials\**" />
     <Compile Remove="Submodules\**" />
+    <EmbeddedResource Remove="P5REssentials\**" />
     <EmbeddedResource Remove="Submodules\**" />
+    <None Remove="P5REssentials\**" />
     <None Remove="Submodules\**" />
   </ItemGroup>
 
@@ -44,9 +47,6 @@
     <Content Include="ModConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Update="P5REssentials\CPK\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Fixes\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -64,10 +64,6 @@
 
   <ItemGroup>
     <ProjectReference Include="Submodules\Crifs.V2.Hook\Interfaces\CriFs.V2.Hook.Interfaces\CriFs.V2.Hook.Interfaces.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="P5REssentials\CPK\" />
   </ItemGroup>
 
 </Project>
