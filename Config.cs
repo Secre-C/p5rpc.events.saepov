@@ -30,7 +30,7 @@ namespace p5rpc.events.saepov.Configuration
         [DefaultValue(true)]
         public bool EventFixes { get; set; } = true;
 
-        [DisplayName("Shadow Sae hat removal")]
+        [DisplayName("Shadow Sae Hat Removal")]
         [Description("Removes Sae's hat from her model to reduce clipping.")]
         [DefaultValue(true)]
         public bool HatRemoval { get; set; } = true;
