@@ -24,7 +24,7 @@ internal unsafe class ModelFunctions
     internal delegate ModelData* d_ModelGetData(ModelResource* modelResource);
     internal d_ModelGetData ModelGetData;
 
-    internal ModelResource* ModelResourceList { get; private set; }
+    internal ModelResource** ModelResourceList { get; private set; }
 
     internal ModelFunctions(ModContext context, IStartupScanner scanner)
     {
@@ -92,7 +92,7 @@ internal unsafe class ModelFunctions
             {
                 var modelResourceListAccessor = Utils.BaseAddress + result.Offset;
 
-                ModelResourceList = (ModelResource*)Utils.GetAddressFromGlobalRef(modelResourceListAccessor, 7);
+                ModelResourceList = (ModelResource**)Utils.GetAddressFromGlobalRef(modelResourceListAccessor, 7);
             }
         });
     }
@@ -101,16 +101,16 @@ internal unsafe class ModelFunctions
     {
         models = new List<ModelResourceHelper>();
 
-        var block = (long)ModelResourceList;
+        var block = ModelResourceList;
         for (var i = 0; i < 0x20; i++)
         {
-            if (*(long*)block == 0)
+            if (*block == null)
             {
-                block += 8;
+                block++;
                 continue;
             }
 
-            for (var current = *(ModelResource**)block; current != null; current = current->Next)
+            for (var current = *block; current != null; current = current->Next)
             {
                 var modelIds = current->ModelIds;
 
@@ -120,7 +120,7 @@ internal unsafe class ModelFunctions
                 models.Add(new ModelResourceHelper(current));
             }
 
-            block += 8;
+            block++;
         }
 
         return models.Count != 0;
