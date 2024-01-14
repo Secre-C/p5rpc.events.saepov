@@ -54,8 +54,8 @@ internal unsafe class SaePov
             {
                 _camPosFunc1Hook.OriginalFunction(a1, a2);
 
-                const int SAE_MODEL_MAJOR_ID = 1005;
-                if (_gameFunctions.TrySearchCharacterModelResource(SAE_MODEL_MAJOR_ID, -1, -1, out var niijimaResources)) // -1 is a wildcard
+                var POVMajorId = _modContext.Configuration.PovModelMajorId;
+                if (_gameFunctions.TrySearchCharacterModelResource(POVMajorId, -1, -1, out var niijimaResources)) // -1 is a wildcard
                 {
                     foreach (var niijimaResource in niijimaResources)
                     {

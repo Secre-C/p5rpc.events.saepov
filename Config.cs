@@ -44,6 +44,11 @@ namespace p5rpc.events.saepov.Configuration
         [Description("POV Camera Field of view")]
         [DefaultValue(50)]
         public float CamFOV { get; set; } = 50;
+
+        [DisplayName("POV Model Major Id")]
+        [Description("Allows the user to change which model POV will trigger for. THIS MAY NOT WORK CONSISTENLY FOR ALL MODELS.")]
+        [DefaultValue(1005)]
+        public short PovModelMajorId { get; set; } = 1005;
     }
 
     /// <summary>
