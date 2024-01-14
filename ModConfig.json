@@ -2,7 +2,7 @@
   "ModId": "p5rpc.events.saepov",
   "ModName": "Sae Niijima Pov",
   "ModAuthor": "SecreC.",
-  "ModVersion": "1.0.1",
+  "ModVersion": "1.0.2",
   "ModDescription": "Makes Sae Niijima's P5R appearances consistent with her P5S appearance by making every event that features her shown from her perspective.",
   "ModDll": "p5rpc.events.saepov.dll",
   "ModIcon": "Preview.png",
