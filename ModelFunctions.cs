@@ -15,9 +15,6 @@ internal unsafe class ModelFunctions
     private IReloadedHooks _hooks;
     private IStartupScanner _scanner;
 
-    internal delegate Vector3* d_ModelGetTranslate(ModelResource* modelResource);
-    internal d_ModelGetTranslate ModelGetTranslate;
-
     internal delegate ModelNodeInfo* d_ModelGetNodeFromName(void* modelNodeData, string nodeName);
     internal d_ModelGetNodeFromName ModelGetNodeFromName;
 
@@ -32,24 +29,9 @@ internal unsafe class ModelFunctions
         _logger = _context.Logger;
         _hooks = _context.Hooks;
         _scanner = scanner;
-
-        _scanner.AddMainModuleScan(@"48 8B D1 48 85 C9 74 ?? 48 8B 49 ?? 0F B6 C1 C0 E8 05 A8 01 75 ?? 4C 8B 02 49 C1 E8 3A 41 83 F8 07 77 ?? 48 8B C1 48 C1 E8 09 A8 01 74 ?? 48 C1 E9 12 F6 C1 01 74 ?? 33 C0 C3 F6 C1 01 74 ?? 41 8D 40 ?? 83 F8 1E 77 ?? 4C 8D 05 ?? ?? ?? ?? 41 0F B6 84 ?? ?? ?? ?? ?? 41 8B 8C ?? ?? ?? ?? ?? 49 03 C8 FF E1 48 8B 82 ?? ?? ?? ?? 48 85 C0 74 ?? 48 8B 40 ?? 48 05 A0 00 00 00",
-            result =>
-            {
-                if (result.Found)
-                {
-                    var adr = Utils.BaseAddress + result.Offset;
-                    _logger.WriteLine($"Found ModelGetTranslate function at 0x{adr:X8}");
-                    ModelGetTranslate = _hooks.CreateWrapper<d_ModelGetTranslate>(adr, out var wrapperAddress);
-                }
-                else
-                {
-                    throw new Exception("Could not find ModelGetTranslate Function.");
-                }
-            });
  
 
-        _scanner.AddMainModuleScan(@"40 53 48 83 EC 20 48 89 D3 49 89 C8",
+        _scanner.AddMainModuleScan(@"48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC 20 48 89 D6 48 89 CF",
             result =>
             {
                 if (result.Found)
@@ -147,7 +129,7 @@ internal unsafe class ModelFunctions
     }
 }
 
-[StructLayout(LayoutKind.Explicit)]
+[StructLayout(LayoutKind.Explicit, Size = 0x2d0)]
 unsafe struct ModelResource
 {
     [FieldOffset(0)]
@@ -170,11 +152,7 @@ unsafe struct ModelResource
 struct ModelNodeInfo
 {
     [FieldOffset(0x20)]
-    internal Quaternion Rot1;
-    [FieldOffset(0x30)]
-    internal Quaternion Rot2;
-    [FieldOffset(0x40)]
-    internal Quaternion Rot3;
+    internal Matrix4x4 TransformationMatrix;
 
     [FieldOffset(0x50)]
     internal Vector3 WorldTranslate;

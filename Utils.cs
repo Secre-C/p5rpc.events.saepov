@@ -20,10 +20,10 @@ internal unsafe class Utils
     } 
 
     //Chat GPT Copypasta
-    public static Quaternion GetRotationBetweenPoints(Vector3 fromPoint, Vector3 toPoint)
+    public static Quaternion GetRotationBetweenPoints(Vector3* fromPoint, Vector3* toPoint)
     {
         // Calculate the rotation from 'fromPoint' to 'toPoint'
-        var direction = Vector3.Normalize(toPoint - fromPoint);
+        var direction = Vector3.Normalize(*toPoint - *fromPoint);
         var rotation = Quaternion.CreateFromRotationMatrix(glmCreateLookAt(Vector3.Zero, direction, Vector3.UnitY));
         return rotation;
     }

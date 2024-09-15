@@ -39,7 +39,7 @@ internal unsafe class SaePov
 
         _gameFunctions = new ModelFunctions(_modContext, _scanner);
 
-        var evtCamPosSig = @"48 85 D2 0F 84 ?? ?? ?? ?? 48 8B C4 55 48 8D A8 ?? ?? ?? ??";
+        var evtCamPosSig = @"48 85 D2 0F 84 ?? ?? ?? ?? 48 8B C4 55 53 48 8D A8";
 
         _scanner.AddMainModuleScan(evtCamPosSig, result =>
         {
@@ -67,7 +67,7 @@ internal unsafe class SaePov
                             var niijimaTranslate = &niijimaFaceNode->WorldTranslate;
                             var niijimaLook = &niijimaLookNode->WorldTranslate;
 
-                            var rot = GetRotationBetweenPoints(*niijimaTranslate, *niijimaLook);
+                            var rot = GetRotationBetweenPoints(niijimaTranslate, niijimaLook);
                             var distance = _modContext.Configuration.CamDistance;
                             var fovy = _modContext.Configuration.CamFOV;
 
